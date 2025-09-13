@@ -277,15 +277,7 @@ assets/
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Developer
 
-**Sagar** - *Full Stack Flutter Developer*
-
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Portfolio: [Your Portfolio](https://yourportfolio.com)
-
----
 
 <div align="center">
   <p>⭐ Star this repository if you found it helpful!</p>
