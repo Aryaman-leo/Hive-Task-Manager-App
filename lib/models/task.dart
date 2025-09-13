@@ -1,5 +1,5 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:hive/hive.dart';
 
 part 'task.g.dart';
 
@@ -40,7 +40,8 @@ class Task extends HiveObject {
 
   @HiveField(6)
   int priority;
-  /// create new Task 
+
+  /// create new Task
   factory Task.create({
     required String? title,
     required String? subtitle,

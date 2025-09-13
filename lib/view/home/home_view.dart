@@ -13,10 +13,10 @@ import '../../view/tasks/task_view.dart';
 import '../../utils/strings.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
@@ -63,7 +63,6 @@ class _HomeViewState extends State<HomeView> {
         return Colors.grey;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,16 +114,17 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ],
-            ),            body: _buildBody(tasks, base, textTheme),
+            ),
+            body: _buildBody(tasks, base, textTheme),
           );
         });
   }
 
   SizedBox _buildBody(
-      List<Task> tasks,
-      BaseWidget base,
-      TextTheme textTheme,
-      ) {
+    List<Task> tasks,
+    BaseWidget base,
+    TextTheme textTheme,
+  ) {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
@@ -154,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
                     Text(
                       "${checkDoneTask(tasks)} of ${tasks.length} ${tasks.length == 1 ? 'task' : 'tasks'}",
                       style:
-                      textTheme.titleMedium?.copyWith(color: Colors.white),
+                          textTheme.titleMedium?.copyWith(color: Colors.white),
                     ),
                   ],
                 )
@@ -171,59 +171,57 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
             child: tasks.isNotEmpty
                 ? ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: tasks.length,
-              itemBuilder: (BuildContext context, int index) {
-                var task = tasks[index];
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: tasks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var task = tasks[index];
 
-                return Dismissible(
-                  direction: DismissDirection.horizontal,
-                  background: Row(
+                      return Dismissible(
+                        direction: DismissDirection.horizontal,
+                        background: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.delete_outline,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(width: 8),
+                            Text(MyString.deletedTask,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ))
+                          ],
+                        ),
+                        onDismissed: (direction) {
+                          base.dataStore.dalateTask(task: task);
+                        },
+                        key: Key(task.id),
+                        child: TaskWidget(
+                          task: task,
+                          priorityText: _getPriorityText(task.priority),
+                          priorityColor: _getPriorityColor(task.priority),
+                        ),
+                      );
+                    },
+                  )
+                : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.delete_outline,
-                        color: Colors.grey,
+                    children: [
+                      FadeIn(
+                        child: SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Lottie.asset(lottieURL,
+                              animate: tasks.isNotEmpty ? false : true,
+                              frameRate: FrameRate.max),
+                        ),
                       ),
-                      SizedBox(width: 8),
-                      Text(MyString.deletedTask,
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ))
+                      FadeInUp(
+                        from: 30,
+                        child: const Text(MyString.doneAllTask),
+                      ),
                     ],
                   ),
-                  onDismissed: (direction) {
-                    base.dataStore.dalateTask(task: task);
-                  },
-                  key: Key(task.id),
-                  child: TaskWidget(
-                    task: task,
-                    priorityText: _getPriorityText(task.priority),
-                    priorityColor: _getPriorityColor(task.priority),
-                  ),
-                );
-              },
-            )
-                : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FadeIn(
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: Lottie.asset(
-                      lottieURL,
-                      animate: tasks.isNotEmpty ? false : true,
-                        frameRate: FrameRate.max
-                    ),
-                  ),
-                ),
-                FadeInUp(
-                  from: 30,
-                  child: const Text(MyString.doneAllTask),
-                ),
-              ],
-            ),
           )
         ],
       ),
@@ -233,7 +231,7 @@ class _HomeViewState extends State<HomeView> {
 
 /// Floating Action Button
 class FAB extends StatelessWidget {
-  const FAB({Key? key}) : super(key: key);
+  const FAB({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -261,9 +259,9 @@ class FAB extends StatelessWidget {
           ),
           child: const Center(
               child: Icon(
-                Icons.add,
-                color: Colors.white,
-              )),
+            Icons.add,
+            color: Colors.white,
+          )),
         ),
       ),
     );
@@ -272,19 +270,18 @@ class FAB extends StatelessWidget {
 
 /// difficulty labels
 
-
 class PriorityLabel extends StatelessWidget {
   final String label;
   final Color color;
 
-  const PriorityLabel({Key? key, required this.label, required this.color}) : super(key: key);
+  const PriorityLabel({super.key, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
+        color: color.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(

@@ -33,9 +33,8 @@ Future<void> main() async {
 }
 
 class BaseWidget extends InheritedWidget {
-  BaseWidget({Key? key, required this.child}) : super(key: key, child: child);
+  BaseWidget({super.key, required super.child});
   final HiveDataStore dataStore = HiveDataStore();
-  final Widget child;
 
   static BaseWidget of(BuildContext context) {
     final base = context.dependOnInheritedWidgetOfExactType<BaseWidget>();
@@ -53,7 +52,7 @@ class BaseWidget extends InheritedWidget {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

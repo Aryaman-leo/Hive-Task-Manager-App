@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:intl/intl.dart';
@@ -9,15 +8,15 @@ import '../../utils/constanst.dart';
 import '../../utils/strings.dart';
 
 class TaskView extends StatefulWidget {
-  TaskView({
-    Key? key,
+  const TaskView({
+    super.key,
     required this.taskControllerForTitle,
     required this.taskControllerForSubtitle,
     required this.task,
-  }) : super(key: key);
+  });
 
-  TextEditingController? taskControllerForTitle;
-  TextEditingController? taskControllerForSubtitle;
+  final TextEditingController? taskControllerForTitle;
+  final TextEditingController? taskControllerForSubtitle;
   final Task? task;
 
   @override
@@ -25,12 +24,11 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  var title;
-  var subtitle;
+  String? title;
+  String? subtitle;
   int priority = 1;
   DateTime? time;
   DateTime? date;
-
 
   /// Show Selected Time As String Format
   String showTime(DateTime? time) {
@@ -101,8 +99,8 @@ class _TaskViewState extends State<TaskView> {
     if (widget.taskControllerForTitle?.text != null &&
         widget.taskControllerForSubtitle?.text != null) {
       try {
-        widget.taskControllerForTitle?.text = title;
-        widget.taskControllerForSubtitle?.text = subtitle;
+        widget.taskControllerForTitle?.text = title ?? '';
+        widget.taskControllerForSubtitle?.text = subtitle ?? '';
 
         // widget.task?.createdAtDate = date!;
         // widget.task?.createdAtTime = time!;
@@ -138,50 +136,6 @@ class _TaskViewState extends State<TaskView> {
   void initState() {
     super.initState();
     priority = widget.task?.priority ?? 1;
-  }
-
-  Widget _buildPrioritySelector() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Priority", style: Theme.of(context).textTheme.headlineSmall),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _priorityButton(1, "High", Colors.red),
-              _priorityButton(2, "Medium", Colors.orange),
-              _priorityButton(3, "Low", Colors.green),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _priorityButton(int value, String text, Color color) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          priority = value;
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          color: priority == value ? color : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: priority == value ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
   }
 
   @override
@@ -309,7 +263,11 @@ class _TaskViewState extends State<TaskView> {
             padding: const EdgeInsets.only(left: 30),
             child: Row(
               children: [
-                const Icon(Icons.label, color: Colors.grey, size: 15,),
+                const Icon(
+                  Icons.label,
+                  color: Colors.grey,
+                  size: 15,
+                ),
                 SizedBox(width: 5),
                 Text(MyString.titleOfTitleTextField,
                     style: textTheme.headlineSmall),
@@ -355,14 +313,16 @@ class _TaskViewState extends State<TaskView> {
             padding: const EdgeInsets.only(left: 30),
             child: Row(
               children: [
-                const Icon(Icons.note_add, color: Colors.grey, size: 15,),
+                const Icon(
+                  Icons.note_add,
+                  color: Colors.grey,
+                  size: 15,
+                ),
                 SizedBox(width: 5),
-                Text(MyString.addNote,
-                    style: textTheme.headlineSmall),
+                Text(MyString.addNote, style: textTheme.headlineSmall),
               ],
             ),
           ),
-
 
           /// Note TextField
           Container(
@@ -408,8 +368,9 @@ class _TaskViewState extends State<TaskView> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                width: MediaQuery.of(context).size.width/4,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                width: MediaQuery.of(context).size.width / 4,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(10),
@@ -434,7 +395,6 @@ class _TaskViewState extends State<TaskView> {
               ),
             ],
           ),
-
 
           /// Time Picker
           GestureDetector(
@@ -467,8 +427,8 @@ class _TaskViewState extends State<TaskView> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child:
-                        Text(MyString.timeString, style: textTheme.headlineSmall),
+                    child: Text(MyString.timeString,
+                        style: textTheme.headlineSmall),
                   ),
                   Expanded(child: Container()),
                   Container(
@@ -521,8 +481,8 @@ class _TaskViewState extends State<TaskView> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child:
-                        Text(MyString.dateString, style: textTheme.headlineSmall),
+                    child: Text(MyString.dateString,
+                        style: textTheme.headlineSmall),
                   ),
                   Expanded(child: Container()),
                   Container(
@@ -593,8 +553,8 @@ class _TaskViewState extends State<TaskView> {
 /// AppBar
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -628,6 +588,3 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(100);
 }
-
-
-
