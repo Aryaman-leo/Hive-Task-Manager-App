@@ -114,12 +114,6 @@ dependencies:
    flutter run
    ```
 
-## 📱 App Screenshots
-
-<div align="center">
-  <img src="assets/img/1.png" alt="App Screenshot" width="300">
-</div>
-
 ## 🎯 Key Implementation Highlights
 
 ### **1. Advanced Data Model**
